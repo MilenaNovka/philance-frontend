@@ -1,0 +1,28 @@
+body {
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+.background{    
+    display: flex;
+    justify-content: space-between;
+    background-image: linear-gradient(to right, #588E55, #75B966);
+    height: 205px;
+}   
+
+.about{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2{
+    font-size: 24px;
+
+}
+
+p{
+    font-size: 20px;
+}
