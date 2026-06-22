@@ -1,40 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Perfil da Empresa</title>
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/perfil.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Idiqlat:wght@200;300;400&display=swap" rel="stylesheet"> <!-- Fonte Idiqlat -->
 </head>
 <body>
-
     <div id="space-navbar"></div>
+    <div class="background"></div>
 
-    <container class="background"></container>
+    <!-- Profile -->
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="brand-group">
+                <div class="profile-avatar"></div>
+                <div class="profile-title">
+                    <a class="profile-name">Italy Caffe</a>
+                    <a class="location">Curitiba, PR</a>
+                </div>
+            </div>
+            <button class="edit-profile-btn">Editar perfil</button>
+        </div>
 
-    <div class="name">
-        <a href="">Nome Empresa</a>
-        <a href="">Localidade</a>
+        <!-- Statistics -->
+        <div class="profile-stats">
+            <div class="stat-item">
+                <a class="stat-number">4.5</a>
+                <p class="stat-label">Avaliação</p>
+            </div>
+            <div class="stat-item">
+                <a class="stat-number">3.460</a>
+                <p class="stat-label">Serviços</p>
+            </div>
+        </div>
+
+        <!-- About -->
+        <div class="profile-about">
+            <h2>Sobre a empresa</h2>
+            <a>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</a>
+        </div>
+
     </div>
 
-
-    <div class="info">
-        <a href="">nota</a>
-        <p>Avaliações</p>
-
-        <a href="">serviços</a>
-        <p>Serviços</p>
-    </div>
-
-    <div class="about">
-        <h2>Sobre a empresa</h2>
-        <a href="">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatibus voluptatem quia animi quasi aut. Cum, non expedita aliquid ullam temporibus maiores obcaecati nam cupiditate nesciunt laborum, enim atque vitae quaerat.</a>
-    </div>
-
+    <script src="/src/componentes/navbar/navbar.js"></script>
+    <script>carregarNavbarHomeEmpresa();</script>
 </body>
-<script src="/src/componentes/navbar/navbar.js"></script>
-<script>
-    carregarNavbarHomeEmpresa();
-</script>
 </html>
