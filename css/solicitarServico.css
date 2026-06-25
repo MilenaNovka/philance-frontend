@@ -1,14 +1,17 @@
 body {
-    margin:0;
-    padding:0;
-    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     font-family: 'Inter', sans-serif;
+    /* impede scroll da página */
+    overflow: hidden;
+    height: 100vh;
 }
 
 /* Fundo */
 .background {
-    min-height: auto;
+    height: 100%;
     width: 100%;
+
     background: linear-gradient(to right, #588E55, #75B966);                       
 
     /* centraliza o conteúdo */
@@ -23,7 +26,6 @@ body {
     height: 794px;
     max-width: 100%;
     background-color: #ffffff;
-    border-radius: 16px;
     padding: 30px 40px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);                      
 }
@@ -37,16 +39,10 @@ body {
     margin-left: 30px;
 }
 
-/* Título de cima */
+/* Título de cima - Que diabos é o título de cima? Pq eu não achei. ass. Milena */
 .title-type {
     color: #888;
     font-size: 20px;
-}
-
-/* Grupo que junta os botões lado a lado */
-.type-buttons {
-    display: flex;
-    gap: 10px;
 }
 
 /* Esconde a bolinha padrão do Radio Button */
@@ -75,27 +71,26 @@ body {
     border-color: #163310;
 }
 
-/*Area/Tags*/
-
 /* Container principal */
 .area-tags {
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
     gap: 5px;
-    margin-left: 30px;
+    margin-left: 0px;
 }
 
 /* Título de cima */
-.title-tags {
+.title-tags,
+.title-vestimenta,
+.title-rua,
+.title-horario,
+.title-duracao,
+.title-pagamento,
+.title-idade,
+.title-descricao {
     color: #888;
     font-size: 20px;
-}
-
-/* Grupo que junta os botões lado a lado */
-.tags-buttons {
-    display: flex;
-    gap: 10px;
 }
 
 /* Esconde a bolinha padrão do Radio Button */
@@ -117,6 +112,11 @@ body {
     margin-top: -10px;
 }
 
+.tags-buttons label:hover{
+    border-color: #588e55;
+    box-shadow: 0 4px 12px rgba(88, 142, 85, 0.2);
+}
+
 /* Estilo do botão quando estiver selecionado (Marcado) */
 .tags-buttons input[type="radio"]:checked + label {
     background-color: #588E55; /* Cor verde aproximada da imagem */
@@ -125,7 +125,8 @@ body {
 }
 
 /* Grupo que junta os botões lado a lado */
-.tags-buttons {
+.tags-buttons,
+.vestimenta-buttons {
     display: flex;
     gap: 10px;
 }
@@ -149,20 +150,24 @@ body {
     margin-top: -10px;
 }
 
+.vestimenta-buttons label:hover{
+    border-color: #588e55;
+    box-shadow: 0 4px 12px rgba(88, 142, 85, 0.2);
+}
+
 /* Estilo do botão quando estiver selecionado (Marcado) */
 .vestimenta-buttons input[type="radio"]:checked + label {
     background-color: #588E55; /* Cor verde aproximada da imagem */
     color: white;
     border-color: #163310;
-}
-
-.title-vestimenta{
-    color: #888;    
-    font-size: 20px;    
-}    
+}   
     
-.type-vestimenta{    
-    margin-left: 30px;    
+.type-vestimenta,
+.duracao-container,
+.horario-dia,
+.addresses
+.descricao{    
+    margin-left: 0px;    
 }    
     
 .rua-vestimenta{    
@@ -184,106 +189,34 @@ input:focus {
     border-color: #588E55;
 }
 
-/*Rua*/
-.title-rua{
-    color: #888;
-    font-size: 20px;
-}
-
-.addresses{
-    margin-left: 30px;
-}
-
 .input-rua{
     width: 760px;
     height: 30px;
 }
 
-/*Horario/Dia*/
-.horario-dia{
-    margin-left: 30px;
-}
-
-.title-horario{
-    color: #888;
-    font-size: 20px;
-}
-
-.input-horario{
-    width: 300px;
-    height: 30px;
-}
-
-/*Container horario-idade*/
-.horario-idade{
-    display: flex;
-    flex-direction: row;
-}
-
-/*Container duração e pagamento*/
-.duracao-pagamento{
-    display: flex;
-    flex-direction: row;
-}
-
-/*Duração*/
-.duracao-container{
-    margin-left: 30px;
-}
-
-.title-duracao{
-    color: #888;
-    font-size: 20px;
-}
-
-.input-duracao{
-    width: 300px;
-    height: 30px;
-}
-
-/*Pagamento*/
-.pagamento{
-    margin-left: 155px;
-}
-
-.title-pagamento{
-    color: #888;
-    font-size: 20px;
-}
-
+.input-horario,
+.input-idade,
+.input-duracao,
 .input-pagamento{
     width: 300px;
     height: 30px;
 }
 
-/*Idade Minima*/
+.horario-idade,
+.duracao-pagamento{
+    display: flex;
+    flex-direction: row;
+}
+
+.pagamento,
 .idade-minima{
     margin-left: 155px;
-}
-
-.title-idade{
-    color: #888;
-    font-size: 20px;
-}
-
-.input-idade{
-    width: 300px;
-    height: 30px;
 }
 
 /*Descrição*/
 .input-descricao{
     width: 760px;
     height: 130px;
-}
-
-.descricao{
-    margin-left: 30px ;
-}
-
-.title-descricao{
-    color: #888;
-    font-size: 20px;
 }
 
 /*Container descrição e tags*/
@@ -296,7 +229,7 @@ input:focus {
     /* Alinhamento */
     align-self: flex-end;
     margin-top: 10px;
-    margin-left: 30px;
+    margin-left: 0px;
     
     /* Cores e visual */
     background-color: #e2ede0;
