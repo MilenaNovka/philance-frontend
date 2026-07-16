@@ -39,12 +39,6 @@ body {
     margin-left: 30px;
 }
 
-/* Título de cima - Que diabos é o título de cima? Pq eu não achei. ass. Milena */
-.title-type {
-    color: #888;
-    font-size: 20px;
-}
-
 /* Esconde a bolinha padrão do Radio Button */
 .type-buttons input[type="radio"] {
     display: none;
