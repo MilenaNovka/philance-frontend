@@ -4,7 +4,6 @@ console.log("Dados brutos do LocalStorage:", dadosSalvosFormulario);
 
 if (!dadosSalvosFormulario) {
     console.log("Nenhum usuário encontrado no LocalStorage.");
-    window.location.href = '/index.html'; 
 } else {
     try {
         const dadosFormulario = JSON.parse(dadosSalvosFormulario);
