@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function inicializarEventosDoCadastro() {
-    const btnCadastrar = document.getElementById("btnCadastrar");
+    const btnCadastrar = document.getElementById("btnCadastro");
     if (btnCadastrar) {
         btnCadastrar.addEventListener("click", enviarDadosParaOBackend);
         console.log("Botão de cadastro ativado via Módulo!");
@@ -65,6 +65,14 @@ async function enviarDadosParaOBackend(event) {
     const phoneInput = document.getElementById('phone');
     const nascimentoInput = document.getElementById('date');
 
+    const cepInput = document.getElementById('cep');
+    const ruaInput = document.getElementById('rua');
+    const numeroInput = document.getElementById('numero');
+    const complementoInput = document.getElementById('complemento');
+    const bairroInput = document.getElementById('bairro');
+    const cidadeInput = document.getElementById('cidade');
+    const ufInput = document.getElementById('uf');
+
     if (!usernameInput?.value || !emailInput?.value || !senhaInput?.value) {
         alert("Preencha todos os campos obrigatórios (Usuário, E-mail e Senha).");
         return;
@@ -101,6 +109,8 @@ async function enviarDadosParaOBackend(event) {
             body: JSON.stringify(dadosFormulario)
         });
 
+    
+
         const conteudoResposta = await resposta.json().catch(() => null);
 
         if (resposta.ok) {
@@ -133,3 +143,57 @@ async function enviarDadosParaOBackend(event) {
         console.error('Erro na requisição:', erro);
     }
 }
+
+const cepInput = document.getElementById('cep');
+
+cepInput.addEventListener('input', async (event) => {
+       
+    const cep = event.target.value.replace(/\D/g, "");
+
+    if (cep.length === 8) {
+        try {
+            const url = "https://viacep.com.br/ws/" + cep + "/json/";
+            const resposta = await fetch(url);
+            const dados = await resposta.json();
+
+            if (dados.erro) {
+                alert("CEP não encontrado!");
+                limparFormulario();
+            } else {
+                preencherFormulario(dados);
+            }
+        } catch (erro) {
+            console.error("Erro ao buscar o CEP:", erro);
+            alert("Erro de conexão ao buscar o CEP.");
+            console.log(cep)
+        }
+    }
+});
+
+function preencherFormulario(dados) {
+    document.getElementById('rua').value = dados.logradouro;
+    document.getElementById('bairro').value = dados.bairro;
+    document.getElementById('cidade').value = dados.localidade;
+    document.getElementById('uf').value = dados.uf;
+}
+
+function limparFormulario() {
+    document.getElementById('rua').value = "";
+    document.getElementById('bairro').value = "";
+    document.getElementById('cidade').value = "";
+    document.getElementById('uf').value = "";
+}
+
+// Força a função a ficar pública no navegador
+window.nextStep = function(stepNumber) {
+    // Esconde todas as seções de etapas
+    document.querySelectorAll('.step').forEach(step => {
+        step.classList.remove('active');
+    });
+    
+    // Mostra apenas a etapa que você quer ver agora
+    const targetStep = document.getElementById('step' + stepNumber);
+    if (targetStep) {
+        targetStep.classList.add('active');
+    }
+};

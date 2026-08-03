@@ -382,6 +382,7 @@ button {
   transform: translateY(0); 
 }
 
+
 .btn-log { 
   padding: 15px 30px; 
   font-size: 15px; 
@@ -406,15 +407,18 @@ button {
   background: rgba(255,255,255,.24); 
 }
 
+
 .btn-outline-dark {
   background: transparent;
   border: 1.5px solid #1F3D2B;
   color: #1F3D2B;
 }
+
 .btn-outline-dark:hover { 
   background: #1F3D2B; 
   color: #fff; 
 }
+
 
 .btn-outline-light {
   background: transparent;
