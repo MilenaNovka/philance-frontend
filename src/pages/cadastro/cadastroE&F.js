@@ -1,7 +1,24 @@
 console.log("Arquivo empresaCadastro.js carregado isoladamente de sua pasta!");
 
 document.addEventListener("DOMContentLoaded", () => {
+    const emailInput = document.getElementById("email");
+    const cpfInput = document.getElementById("cpf")
+    const cnpjInput = document.getElementById("cnpj")
+
     inicializarEventosDoCadastro();
+    if(cpfInput){
+        verificarCPF();
+    }
+    
+    if(cnpjInput){
+        verificarCNPJ();        
+    }
+    
+
+    
+    if(emailInput){
+        emailInput.addEventListener('blur', verificarEmail);
+        }
 });
 
 function inicializarEventosDoCadastro() {
@@ -212,3 +229,192 @@ window.nextStep = function(stepNumber) {
         targetStep.classList.add('active');
     }
 };
+
+
+function verificarCPF() {
+    const cpfInput = document.getElementById('cpf');
+    if (!cpfInput) return;
+
+    
+    cpfInput.addEventListener('input', (event) => {
+        let valor = event.target.value.replace(/\D/g, "");
+        if (valor.length <= 11) {
+            cpfInput.maxLength = 14; 
+            valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+            valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+            valor = valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+            event.target.value = valor;
+        }
+    const cpf = valor.replace(/\D/g, "");
+
+    if (cpf.length === 11) {
+            if (/^(\d)\1{10}$/.test(cpf)) {
+                marcarCpfInvalido(cpfInput);
+                return;
+            }
+
+            let s = 0, r;
+            for (let i = 1; i <= 9; i++) {
+                s += parseInt(cpf[i - 1]) * (11 - i);
+            }
+            r = (s * 10) % 11;
+            if (r === 10 || r === 11) r = 0;
+            if (r !== parseInt(cpf[9])) {
+                marcarCpfInvalido(cpfInput);
+                return;
+            }
+
+            s = 0;
+            for (let i = 1; i <= 10; i++) {
+                s += parseInt(cpf[i - 1]) * (12 - i);
+            }
+            r = (s * 10) % 11;
+            if (r === 10 || r === 11) r = 0;
+            if (r !== parseInt(cpf[10])) {
+                marcarCpfInvalido(cpfInput);
+                return;
+            }
+
+            marcarCpfValido(cpfInput);
+        } else {
+            cpfInput.removeAttribute('data-valido');
+        }
+        if(cpf.length === 0){
+        cpfInput.removeAttribute("data-valido");
+        document.getElementById("mensagem-cpf").textContent = "";
+        return;
+    }
+    });
+}
+
+function marcarCpfValido(input) {
+    input.setAttribute("data-valido", "true");
+
+    const mensagem = document.getElementById("mensagem-cpf");
+
+    mensagem.textContent = "CPF Válido.";
+    
+}
+
+function marcarCpfInvalido(input) {
+    input.setAttribute("data-valido", "false");
+
+    const mensagem = document.getElementById("mensagem-cpf");
+    mensagem.textContent = "CPF Inválido.";
+}
+
+function verificarEmail(){
+    const emailInput = document.getElementById("email");
+    const mensagem = document.getElementById("mensagem-email");
+
+    if(!emailInput) return;
+
+    if(emailInput.value.trim() === ""){
+        emailInput.removeAttribute("data-valido");
+        document.getElementById("mensagem-email").textContent = "";
+        return;
+    }
+
+    const padrao = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+     if(padrao.test(emailInput.value)) {
+        mensagem.textContent = "Email Válido";
+        return true;
+    } else {
+        
+        mensagem.textContent = "Email Inválido";
+        return false;
+    }
+    
+}
+
+function verificarCNPJ(){
+    const cnpjInput = document.getElementById("cnpj");
+    const mensagem = document.getElementById("mensagem-cnpj")
+
+    if(!cnpjInput) return;
+
+
+    cnpjInput.addEventListener("input", (event)=>{
+
+        let valor = event.target.value.replace(/\D/g,"");
+
+
+        if(valor.length <= 14){
+
+            valor = valor.replace(/^(\d{2})(\d)/,"$1.$2");
+            valor = valor.replace(/^(\d{2})\.(\d{3})(\d)/,"$1.$2.$3");
+            valor = valor.replace(/\.(\d{3})(\d)/,".$1/$2");
+            valor = valor.replace(/(\d{4})(\d)/,"$1-$2");
+
+            event.target.value = valor;
+
+        }
+
+
+        const cnpj = valor.replace(/\D/g,"");
+
+
+        if(cnpj.length < 14){
+            cnpjInput.removeAttribute("data-valido");
+            mensagem.textContent = "";
+            return;
+        }
+
+
+        if(validarCNPJ(cnpj)){
+            cnpjInput.setAttribute("data-valido","true");
+            mensagem.textContent = "CNPJ Válido.";
+        }
+        else{
+            cnpjInput.setAttribute("data-valido","false");
+            mensagem.textContent = "CNPJ Inválido.";
+        }
+
+    });
+
+}
+
+function validarCNPJ(cnpj) {
+
+    
+    if (/^(\d)\1+$/.test(cnpj)) {
+        return false;
+    }
+
+
+    //primeiro dígito
+    let tamanho = 12;
+    let numeros = cnpj.substring(0, tamanho);
+    let soma = 0;
+
+    let pesos = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+
+    for (let i = 0; i < tamanho; i++) {
+        soma += Number(numeros[i]) * pesos[i];
+    }
+
+    let resto = soma % 11;
+    let digito1 = resto < 2 ? 0 : 11 - resto;
+
+
+    //segundo dígito
+    tamanho = 13;
+    numeros = cnpj.substring(0, tamanho);
+    soma = 0;
+
+    pesos = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+
+    for (let i = 0; i < tamanho; i++) {
+        soma += Number(numeros[i]) * pesos[i];
+    }
+
+    resto = soma % 11;
+    let digito2 = resto < 2 ? 0 : 11 - resto;
+
+
+    return (
+        digito1 === Number(cnpj[12]) &&
+        digito2 === Number(cnpj[13])
+    );
+}
