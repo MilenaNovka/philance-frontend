@@ -364,6 +364,11 @@ button {
 
 
 /* ---------- Botões ---------- */
+
+a{
+    text-decoration: none;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -395,8 +400,6 @@ button {
 .btn-dark:hover { 
   opacity: .9; 
 }
-
-
 
 .btn-outline {
   background: rgba(255,255,255,.14);
