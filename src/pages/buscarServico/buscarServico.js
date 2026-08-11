@@ -29,7 +29,7 @@ async function buscarServicos() {
     
     const localAlvo = document.getElementById('card-servico');
 
-    const colunaDetalhes = document.querySelector('.green'); 
+    const colunaDetalhes = document.querySelector('.background'); 
     
     if (!localAlvo) {
         console.error("Contêiner #card-servicos não foi encontrado no HTML.");
@@ -48,7 +48,7 @@ async function buscarServicos() {
           card.setAttribute('data-id', servico.id);
           
           card.innerHTML = `
-            <div >
+            <div class="side-card">
                 <p>${servico.company}</p>
                 <span>R$ ${servico.payment}</span>
                 <h3>${servico.title}</h3>
@@ -88,18 +88,46 @@ function exibirDetalhesDoServico(servico, container) {
                 <button class="btn btn-aceitar" data-id="${servico.id}">Aceitar</button>
             </article>
 
-            <article class="detalhes-info-grid">
-                <p><strong>Preço:</strong> R$ ${servico.payment}</p>
-                <p><strong>Cidade:</strong> ${servico.address}</p>
-                <p><strong>Idade Mínima:</strong> ${servico.min_age} anos</p>
-                <p><strong>Traje:</strong> ${servico.attire}</p>
-                <p><strong>Início:</strong> ${inicio}</p>
-                <p><strong>Término:</strong> ${fim}</p>
+            <article class="card-meio">
+            <h4 class="card-titulo">Informações</h4>
+                <div class="info-grade">
+                    <div class="info-item">
+                        <span class="info-label">Valor</span>
+                        <span class="info-valor">R$ ${servico.payment}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Cidade</span>
+                        <span class="info-valor">${servico.address}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Idade Mínima</span>
+                        <span class="info-valor">${servico.min_age}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Traje</span>
+                        <span class="info-valor">${servico.attire}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Início</span>
+                        <span class="info-valor">${inicio}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-label">Término</span>
+                        <span class="info-valor">${fim}</span>
+                    </div>
+                    
+                </div>
             </article>
 
 
-            <article class="detalhes-descricao">
-                <p class="detalhe-descricao"><strong>Descrição completa:</strong> ${servico.description}</p>
+            <article class="card-final">
+                <h4 class="card-titulo">Descrição completa</h4>
+                <p class="detalhe-descricao">${servico.description}</p>
             </article>
             
         </section>
@@ -152,7 +180,7 @@ document.addEventListener('click', async function(event) {
             }
 
             // 3. Limpa a coluna da direita (detalhes), já que o serviço sumiu
-            const colunaDetalhes = document.querySelector('.green');
+            const colunaDetalhes = document.querySelector('.background');
             if (colunaDetalhes) {
                 colunaDetalhes.innerHTML = '';
             }
