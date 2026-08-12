@@ -49,6 +49,7 @@ ul{
     display: flex;
     gap: 10px;
     align-items: center;
+    margin-right: 20px;
 }
 
 img{
@@ -181,3 +182,4 @@ img{
     color: #727272;
     font-size: 15px;
 }
+
