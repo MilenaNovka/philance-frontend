@@ -13,6 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
     <!-- Icone -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -21,10 +23,10 @@
     <section class="banner">
         <div class="banner-interior">
             <div class="banner-text">
-                <h1>Bem vindo de volta<br>Italy Caffé</h1>
+                <h1>Bem vindo de volta<br id="username"></br></h1>
                 <p>Solicite um novo serviço de freelancer</p>
                 <a href="/src/pages/solicitarServico/solicitarServico.html">
-                    <button class="btn btn-outline">Solicitar serviço</button>
+                    <button class="btn btn-outline">Solicitar serviço<i class="fa-solid fa-arrow-right icon-arrow"></i></button>
                 </a>
             </div>
         </div>
@@ -48,62 +50,11 @@
             </div>
         </article>
 
-        <article class="estatistica-card estatistica-card-financeiro">
-            <div class="estatistica-head estatistica-head-split">
-                <h3>Freelancers<br>Contratados</h3>
-                <div class="totais">
-                    <div class="totais-linha">
-                        <span class="totais-label">Esta Semana:</span>
-                        <span class="backg">9</span>
-                    </div>
-                    <div class="totais-linha">
-                        <span class="totais-label">Este Mês:</span>
-                        <span class="backg">34</span>
-                    </div>
-                </div>
-            </div>
-        </article>
 
         <!-- Relatório de Serviços -->
         <article class="estatistica-card ">
             <h3 class="grafico-titulo">Relatório de Serviços</h3>
-            <div class="grafico-barras">
-                <div class="barra-coluna">
-                    <span class="barra-valor">5</span>
-                    <div class="barra" style="height: 33%;"></div>
-                    <span class="barra-label">Seg</span>
-                </div>
-                <div class="barra-coluna">
-                    <span class="barra-valor">10</span>
-                    <div class="barra" style="height: 67%;"></div>
-                    <span class="barra-label">Ter</span>
-                </div>
-                <div class="barra-coluna">
-                    <span class="barra-valor">15</span>
-                    <div class="barra" style="height: 100%;"></div>
-                    <span class="barra-label">Qua</span>
-                </div>
-                <div class="barra-coluna">
-                    <span class="barra-valor">7</span>
-                    <div class="barra" style="height: 47%;"></div>
-                    <span class="barra-label">Qui</span>
-                </div>
-                <div class="barra-coluna">
-                    <span class="barra-valor">12</span>
-                    <div class="barra" style="height: 80%;"></div>
-                    <span class="barra-label">Sex</span>
-                </div>
-                <div class="barra-coluna">
-                    <span class="barra-valor">5</span>
-                    <div class="barra" style="height: 33%;"></div>
-                    <span class="barra-label">Sáb</span>
-                </div>
-                <div class="barra-coluna">
-                    <span class="barra-valor">3</span>
-                    <div class="barra" style="height: 20%;"></div>
-                    <span class="barra-label">Dom</span>
-                </div>
-            </div>
+            <canvas class="grafico" id="meuGrafico"></canvas>
         </article>
 
     </section>
@@ -115,61 +66,7 @@
             <span class="contador-badge">4</span>
         </div>
 
-        <div class="servico-lista">
-
-            <article class="servico-card">
-                <div class="servico-coluna linha-vertical">
-                    <div class="servico-avatar"></div>
-                    <div class="servico-empresa">
-                        <h4>Italy Caffé <span class="servico-avaliacao"><i class="fa-solid fa-star"></i> 4.5</span></h4>
-                        <span class="servico-local">Curitiba, PR</span>
-                    </div>
-                    <span class="servico-contagem">
-                        <span class="dot"></span> Faltam 2h até o serviço
-                    </span>
-                    <h3 class="servico-funcao">Barista</h3>
-                    <div class="servico-preco">
-                        <span class="servico-valor-hora">R$18/h</span>
-                        <span class="servico-valor-total">R$108 total (6h)</span>
-                    </div>
-                </div>
-
-                <div class="servico-coluna linha-vertical">
-                    <h4 class="servico-coluna-titulo">Informações</h4>
-                    <div class="info-grade">
-                        <div class="info-item">
-                            <span class="info-label">Tipo</span>
-                            <span class="info-valor">Por hora</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Horário</span>
-                            <span class="info-valor">14h - 20h</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Duração</span>
-                            <span class="info-valor">6 horas</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Idade mínima</span>
-                            <span class="info-valor">Sem restrição</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Endereço</span>
-                            <span class="info-valor">Praça Gen. Osório, 125</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-label">Vestimenta</span>
-                            <span class="info-valor">Sem restrição</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="servico-coluna">
-                    <h4 class="servico-coluna-titulo">Descrição</h4>
-                    <p>Buscamos barista experiente para turno da tarde no Italy Café. Responsável pelo preparo de espresso, cappuccino e drinks especiais. Ambiente descontraído e equipe acolhedora.</p>
-                </div>
-            </article>
-
+        <div class="servico-lista" id="areaFinalizar">
         </div>
     </section>
 
