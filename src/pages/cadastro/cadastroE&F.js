@@ -73,6 +73,8 @@ document.addEventListener('click', (event) => {
     const secaoFreelancerSobre = document.getElementById('campo-sobre-freelancer-cadastro');
     const secaoEmpresaSobre = document.getElementById('campo-sobre-empresa-cadastro');
 
+    const btnAvancarStep2 = document.querySelector('#step2 .btn-dark');
+
     const botoesSwitch = document.querySelectorAll('.switch-btn');
     botoesSwitch.forEach(b => b.classList.remove('ativo'));
     
@@ -89,6 +91,10 @@ document.addEventListener('click', (event) => {
         secaoEmpresacnpj?.classList.add('escondido');
         secaoFreelancerSobre?.classList.remove('escondido');
         secaoEmpresaSobre?.classList.add('escondido')
+
+        if (btnAvancarStep2) {
+            btnAvancarStep2.innerHTML = 'Avançar <i class="fa-solid icon-arrowR"></i>';
+        }
         
     } else if (tipoSelecionado === 'E') {
         secaoEmpresa?.classList.remove('escondido');
@@ -97,6 +103,10 @@ document.addEventListener('click', (event) => {
         secaoFreelancercpf?.classList.add('escondido');
         secaoEmpresaSobre?.classList.remove('escondido');
         secaoFreelancerSobre?.classList.add('escondido')
+
+        if (btnAvancarStep2) {
+            btnAvancarStep2.innerHTML = 'Cadastrar <i class="fa-solid fa-paper-plane icon-paper"></i></i>';
+        }
     }
 });
 
@@ -164,6 +174,9 @@ async function enviarDadosParaOBackend(event) {
     const phoneInput = document.getElementById('phone');
     const nascimentoInput = document.getElementById('date-nascimento');
     const criacaoInput = document.getElementById('date-criacao')
+    const sobreVoce = document.getElementById('sobre-voce');
+    const sobreEmpresa = document.getElementById('sobre-empresa')
+    
 
     const ruaInput = document.getElementById('rua');
     const numeroInput = document.getElementById('numero');
@@ -179,13 +192,16 @@ async function enviarDadosParaOBackend(event) {
     // 1. Obtenção segura e sanitização da String
     let documentoValue = "";
     let dateValue = "";
+    let descricaoValue = "";
 
     if (tipoUsuarioAtual === 'F' && cpfInput && nascimentoInput) {
         documentoValue = String(cpfInput.value).trim().replace(/\D/g,"");
         dateValue = String(nascimentoInput.value).trim();
+        descricaoValue = String(sobreVoce.value).trim()
     } else if (tipoUsuarioAtual === 'E' && cnpjInput && criacaoInput) {
         documentoValue = String(cnpjInput.value).trim().replace(/\D/g,"");
         dateValue = String(criacaoInput.value).trim();
+        descricaoValue = String(sobreEmpresa.value).trim()
     }
 
     // 2. Montagem do objeto JSON que vai para o backend
@@ -195,6 +211,7 @@ async function enviarDadosParaOBackend(event) {
         phone: phoneInput?.value || "",
         birthday: dateValue,
         type: tipoUsuarioAtual,
+        description: descricaoValue,
         password: passwordHashed,
         document: documentoValue,  // Enviado como String
         zip_code: cepInput.value.replace(/\D/g,""),
@@ -375,20 +392,20 @@ window.nextStep = function(stepNumber) {
 
     }
 
+    // CASO SEJA EMPRESA: Se tentar ir para o passo 3, finaliza o cadastro aqui
+    if (tipoUsuarioAtual === 'E' && stepNumber === 3) {
+        enviarDadosParaOBackend();
+        return; // Para a execução e não muda de step
+    }
 
     // Continua para próxima etapa
     document.querySelectorAll('.step').forEach(step => {
-
         step.classList.remove('active');
-
     });
-
 
     const targetStep = document.getElementById("step" + stepNumber);
 
-
     if(targetStep){
-
         targetStep.classList.add("active");
 
     }

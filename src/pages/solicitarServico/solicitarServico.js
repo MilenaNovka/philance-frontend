@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     carregarTagsDoBackend();
 });
 
+const mensagem = document.getElementById("mensagem-solicitar");
 
 async function configurarEnderecoUsuario() {
     const usuarioLogadoString = localStorage.getItem("dadosFormulario");
@@ -32,6 +33,7 @@ async function configurarEnderecoUsuario() {
             selectElement.appendChild(option);
 
             console.log(dadosDoServidor);
+            localStorage.setItem("dadosEndereco", JSON.stringify(dadosDoServidor));
         
             
         } else {
@@ -76,7 +78,8 @@ async function enviarDadosParaOBackendSolicitar(event, nomeDogrupo, nomeTags) {
     if (event) event.preventDefault();
 
     const dadosLocalStorage = localStorage.getItem("dadosFormulario");
-    
+    const camposValidos = verificarCamposSolicitar();
+
     if (!dadosLocalStorage) {
       alert("Usuário não está logado!");
       return;
@@ -92,14 +95,13 @@ async function enviarDadosParaOBackendSolicitar(event, nomeDogrupo, nomeTags) {
     const campoTermino = document.getElementById('termino');
     const campoInicio = document.getElementById('inicio');
 
-
     const idTagSelecionada = campoTags ? campoTags.value : "";
 
     const nomeTagSelecionada = campoTags && campoTags.selectedIndex >= 0 ? campoTags.options[campoTags.selectedIndex].text : "";
 
     if (!idTagSelecionada) {
-        alert("Por favor, selecione uma tag válida.");
-        return;
+        mensagem.textContent = "Selecione uma tag válida.";
+        return false;
     }
 
     const radioSelecionado = document.querySelector(`input[name="${nomeDogrupo}"]:checked`);
@@ -152,3 +154,54 @@ async function enviarDadosParaOBackendSolicitar(event, nomeDogrupo, nomeTags) {
     }
 }
 
+function verificarCamposSolicitar() {
+    const campoTags = document.getElementById('tags');
+    const campoRua = document.getElementById('rua');
+    const campoInicio = document.getElementById('inicio');
+    const campoTermino = document.getElementById('termino');
+    const campoMinAge = document.getElementById('min_age');
+    const campoPayment = document.getElementById('payment');
+    const campoDescription = document.getElementById('description');
+
+    const camposPreenchidos =
+        campoTags.value &&
+        campoRua.value &&
+        campoInicio.value &&
+        campoTermino.value &&
+        campoMinAge.value &&
+        campoPayment.value &&
+        campoDescription.value.trim() !== "";
+
+    if (!camposPreenchidos) {
+        mensagem.textContent = "Preencha todos os campos antes de continuar.";
+        return false;
+    }
+
+    // Validação extra para a idade mínima permitida
+    if (Number(campoMinAge.value) < 16) {
+        mensagem.textContent = "A idade mínima permitida é 16 anos.";
+        return false;
+    }
+
+    mensagem.textContent = "";
+    return true;
+}
+function formatarVisual() {
+    var input = document.getElementById("payment");
+    var valorLimpo = input.value.replace(/\D/g, ""); 
+    
+    if (valorLimpo === "") {
+        input.value = "";
+        return;
+    }
+
+
+    var valorNumerico = parseFloat(valorLimpo) / 100;
+
+    var valorFormatado = valorNumerico.toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+
+    input.value = valorFormatado;
+}
