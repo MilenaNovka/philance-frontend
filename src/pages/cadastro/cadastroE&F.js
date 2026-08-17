@@ -197,11 +197,11 @@ async function enviarDadosParaOBackend(event) {
     if (tipoUsuarioAtual === 'F' && cpfInput && nascimentoInput) {
         documentoValue = String(cpfInput.value).trim().replace(/\D/g,"");
         dateValue = String(nascimentoInput.value).trim();
-        descricaoValue = String(sobreVoce.value).trim()
+        descricaoValue = String(sobreVoce.value).trim();
     } else if (tipoUsuarioAtual === 'E' && cnpjInput && criacaoInput) {
         documentoValue = String(cnpjInput.value).trim().replace(/\D/g,"");
         dateValue = String(criacaoInput.value).trim();
-        descricaoValue = String(sobreEmpresa.value).trim()
+        descricaoValue = String(sobreEmpresa.value).trim();
     }
 
     // 2. Montagem do objeto JSON que vai para o backend
