@@ -174,8 +174,8 @@ async function enviarDadosParaOBackend(event) {
     const phoneInput = document.getElementById('phone');
     const nascimentoInput = document.getElementById('date-nascimento');
     const criacaoInput = document.getElementById('date-criacao')
-    const sobreVoce = document.getElementById('sobre-voce');
-    const sobreEmpresa = document.getElementById('sobre-empresa')
+    const sobreVoce = document.getElementById('sobre');
+    const sobreEmpresa = document.getElementById('sobre')
     
 
     const ruaInput = document.getElementById('rua');
@@ -202,6 +202,10 @@ async function enviarDadosParaOBackend(event) {
         documentoValue = String(cnpjInput.value).trim().replace(/\D/g,"");
         dateValue = String(criacaoInput.value).trim();
         descricaoValue = String(sobreEmpresa.value).trim();
+    }
+
+    if (descricaoValue == null){
+        descricaoValue = "Sem descrição.";
     }
 
     // 2. Montagem do objeto JSON que vai para o backend

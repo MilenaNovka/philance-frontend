@@ -145,7 +145,7 @@ if (botao && banner && areaServico) {
             <article class="painel-detalhe-vaga">
                 <!-- Coluna 1: Perfil do Ofertante e Cargo -->
                 <div class="detalhe-secao-perfil detalhe-divisoria">
-                    <div class="detalhe-foto-contratante"></div>
+                    
                     <div class="detalhe-bloco-empresa">
                         <h4>${dados.companyName || 'Empresa'} <span class="detalhe-nota-avaliacao"><i class="fa-solid fa-star"></i> 4.5</span></h4>
                         <span class="detalhe-cidade-estado">Curitiba, PR</span>
